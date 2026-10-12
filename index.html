@@ -1,0 +1,181 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recomenda+ | Películas y series</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="encabezado">
+        <a class="logo" href="index.html">Recomenda<span>+</span></a>
+        <p>Películas y series que vale la pena descubrir.</p>
+    </header>
+
+    <main class="contenedor">
+
+        <section class="intro">
+            <span class="etiqueta">COMPARTÍ LO QUE TE GUSTA</span>
+            <h1>Recomendá una película o serie</h1>
+            <p>
+                ¿Viste algo que te encantó? Compartí tu opinión
+                y ayudá a otras personas a encontrar su próxima
+                historia favorita.
+            </p>
+        </section>
+
+        <form class="formulario" action="#" method="post">
+
+            <div class="campo">
+                <label for="titulo">Título <span class="obligatorio">*</span></label>
+                <input
+                    type="text"
+                    id="titulo"
+                    name="titulo"
+                    placeholder="Ej.: Enola Holmes"
+                    required
+                >
+            </div>
+
+            <div class="fila">
+                <div class="campo">
+                    <label for="tipo">Tipo de contenido <span class="obligatorio">*</span></label>
+                    <select id="tipo" name="tipo" required>
+                        <option value="" disabled selected>Elegí una opción</option>
+                        <option value="pelicula">Película</option>
+                        <option value="serie">Serie</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="genero">Género <span class="obligatorio">*</span></label>
+                    <select id="genero" name="genero" required>
+                        <option value="" disabled selected>Elegí un género</option>
+                        <option value="accion">Acción</option>
+                        <option value="aventura">Aventura</option>
+                        <option value="comedia">Comedia</option>
+                        <option value="drama">Drama</option>
+                        <option value="fantasia">Fantasía</option>
+                        <option value="ciencia-ficcion">Ciencia ficción</option>
+                        <option value="terror">Terror</option>
+                        <option value="romance">Romance</option>
+                        <option value="suspenso">Suspenso</option>
+                        <option value="animacion">Animación</option>
+                        <option value="documental">Documental</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="fila">
+                <div class="campo">
+                    <label for="plataforma">Plataforma</label>
+                    <select id="plataforma" name="plataforma">
+                        <option value="">Elegí una plataforma</option>
+                        <option value="netflix">Netflix</option>
+                        <option value="max">Max</option>
+                        <option value="disney-plus">Disney+</option>
+                        <option value="prime-video">Prime Video</option>
+                        <option value="apple-tv">Apple TV+</option>
+                        <option value="cine">Cine</option>
+                        <option value="otra">Otra</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="anio">Año de estreno</label>
+                    <input
+                        type="number"
+                        id="anio"
+                        name="anio"
+                        min="1888"
+                        max="2100"
+                        placeholder="Ej.: 2024"
+                    >
+                </div>
+            </div>
+
+            <div class="campo">
+                <label for="puntuacion">Tu puntuación <span class="obligatorio">*</span></label>
+                <select id="puntuacion" name="puntuacion" required>
+                    <option value="" disabled selected>¿Cuánto te gustó?</option>
+                    <option value="1">★☆☆☆☆ — 1 de 5</option>
+                    <option value="2">★★☆☆☆ — 2 de 5</option>
+                    <option value="3">★★★☆☆ — 3 de 5</option>
+                    <option value="4">★★★★☆ — 4 de 5</option>
+                    <option value="5">★★★★★ — 5 de 5</option>
+                </select>
+            </div>
+
+            <div class="campo">
+                <label for="portada">URL de la portada</label>
+                <input
+                    type="url"
+                    id="portada"
+                    name="portada"
+                    placeholder="https://ejemplo.com/portada.jpg"
+                >
+                <small>Opcional: pegá el enlace directo a la imagen.</small>
+            </div>
+
+            <div class="campo">
+                <label for="resena">Reseña <span class="obligatorio">*</span></label>
+                <textarea
+                    id="resena"
+                    name="resena"
+                    rows="4"
+                    placeholder="¿De qué trata? Contá un poco sin revelar spoilers..."
+                    required
+                ></textarea>
+            </div>
+
+            <div class="campo">
+                <label for="motivo">¿Por qué la recomendás? <span class="obligatorio">*</span></label>
+                <textarea
+                    id="motivo"
+                    name="motivo"
+                    rows="3"
+                    placeholder="¿Qué fue lo que más te gustó? ¿A quién se la recomendarías?"
+                    required
+                ></textarea>
+            </div>
+
+            <div class="campo">
+                <label for="fecha">Fecha de recomendación</label>
+                <input type="date" id="fecha" name="fecha">
+            </div>
+
+            <label class="checkbox-campo" for="recomendacion-general">
+                <input
+                    type="checkbox"
+                    id="recomendacion-general"
+                    name="recomendacion_general"
+                    value="si"
+                >
+                <span>La recomendaría a cualquier persona</span>
+            </label>
+
+            <p class="nota">
+                <span class="obligatorio">*</span> Campos obligatorios
+            </p>
+
+            <button type="submit" class="boton-enviar">
+                Publicar recomendación →
+            </button>
+
+        </form>
+
+        <p class="aviso">
+            Proyecto académico: el formulario todavía no guarda
+            recomendaciones en una base de datos.
+        </p>
+
+    </main>
+
+    <footer class="pie">
+        <p>© 2026 Recomenda+ · Películas y series para descubrir.</p>
+    </footer>
+
+</body>
+</html>
