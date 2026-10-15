@@ -1,4 +1,3 @@
-
 const formulario = document.getElementById('form-serie');
 
 const selectorImagen = document.getElementById('imagen-file');
@@ -200,7 +199,7 @@ formulario.addEventListener('submit', async function (e) {
                 'Error al guardar en Supabase: ' + error.message
             );
         }
-
+        await cargarSeries();
         // ========================================
         // 7. CONFIRMAR Y LIMPIAR EL FORMULARIO
         // ========================================
@@ -243,3 +242,88 @@ formulario.addEventListener('submit', async function (e) {
         botonEnviar.textContent = 'Publicar recomendación →';
     }
 });
+
+
+ // ========================================
+ // 8. CARGAR EL CATÁLOGO DE RECOMENDACIONES
+ // ========================================
+
+async function cargarSeries() {
+    const catalogo = document.getElementById('grid-series');
+
+    if (!catalogo) {
+        console.error('No se encontró el contenedor #grid-series.');
+        return;
+    }
+
+    catalogo.innerHTML = '<p>Cargando recomendaciones...</p>';
+
+    try {
+        const { data, error } = await window.supabase
+            .from('recomendaciones')
+            .select('*');
+
+        if (error) {
+            throw error;
+        }
+
+        catalogo.innerHTML = '';
+
+        if (!data || data.length === 0) {
+            catalogo.innerHTML =
+                '<p>Todavía no hay recomendaciones publicadas.</p>';
+            return;
+        }
+
+        data.forEach(function (serie) {
+            const tarjeta = document.createElement('article');
+            tarjeta.className = 'card-serie';
+
+            if (serie.imagen_url) {
+                const imagen = document.createElement('img');
+                imagen.src = serie.imagen_url;
+                imagen.alt = 'Portada de ' + serie.titulo;
+                imagen.className = 'imagen-serie';
+                imagen.loading = 'lazy';
+
+                tarjeta.appendChild(imagen);
+            }
+
+            const titulo = document.createElement('h3');
+            titulo.textContent = serie.titulo || 'Sin título';
+            tarjeta.appendChild(titulo);
+
+            const tipo = document.createElement('p');
+            tipo.textContent = 'Tipo: ' + (serie.tipo || 'No especificado');
+            tarjeta.appendChild(tipo);
+
+            const genero = document.createElement('p');
+            genero.textContent = 'Género: ' + (serie.genero || 'No especificado');
+            tarjeta.appendChild(genero);
+
+            const puntuacion = document.createElement('p');
+            puntuacion.textContent =
+                'Puntuación: ' + (serie.puntuacion ?? 'Sin puntuación') + '/5';
+            tarjeta.appendChild(puntuacion);
+
+            const descripcion = document.createElement('p');
+            descripcion.textContent =
+                serie.descripcion || 'Sin descripción';
+            tarjeta.appendChild(descripcion);
+
+            catalogo.appendChild(tarjeta);
+        });
+
+    } catch (error) {
+        console.error('Error al cargar el catálogo:', error);
+        catalogo.innerHTML =
+            '<p>No se pudieron cargar las recomendaciones. Revisá la consola.</p>';
+    }
+}
+
+// Ejecutar la carga cuando la página esté lista.
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', cargarSeries);
+} else {
+    cargarSeries();
+}
