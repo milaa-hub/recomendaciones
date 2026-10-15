@@ -1,15 +1,20 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recomenda+ | Películas y series</title>
-    <link rel="stylesheet" href="style.css"> 
 
+    <title>Recomenda+ | Películas y series</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Configuración PWA -->
     <link rel="manifest" href="./manifest.json">
     <meta name="theme-color" content="#2563eb">
     <meta name="mobile-web-app-capable" content="yes">
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 </head>
 <body>
@@ -31,17 +36,12 @@
             </p>
         </section>
 
-        <form class="formulario" action="#" method="post">
+        <form id="form-serie" class="formulario" action="#" method="post">
 
             <div class="campo">
                 <label for="titulo">Título <span class="obligatorio">*</span></label>
-                <input
-                    type="text"
-                    id="titulo"
-                    name="titulo"
-                    placeholder="Ej.: Enola Holmes"
-                    required
-                >
+                <input type="text" id="titulo" name="titulo"
+                       placeholder="Ej.: Enola Holmes" required>
             </div>
 
             <div class="fila">
@@ -90,14 +90,8 @@
 
                 <div class="campo">
                     <label for="anio">Año de estreno</label>
-                    <input
-                        type="number"
-                        id="anio"
-                        name="anio"
-                        min="1888"
-                        max="2100"
-                        placeholder="Ej.: 2024"
-                    >
+                    <input type="number" id="anio" name="anio"
+                           min="1888" max="2100" placeholder="Ej.: 2024">
                 </div>
             </div>
 
@@ -113,37 +107,33 @@
                 </select>
             </div>
 
+            <!-- Selector de portada -->
             <div class="campo">
-                <label for="portada">URL de la portada</label>
-                <input
-                    type="url"
-                    id="portada"
-                    name="portada"
-                    placeholder="https://ejemplo.com/portada.jpg"
-                >
-                <small>Opcional: pegá el enlace directo a la imagen.</small>
+                <label for="imagen-file">Portada de la película o serie</label>
+                <input type="file" id="imagen-file" name="imagen"
+                       accept="image/*" class="form-control">
+                <small>Opcional: seleccioná una imagen desde tu computadora o celular.</small>
+
+                <div id="vista-previa-container" hidden>
+                    <p>Vista previa de la portada:</p>
+                    <img id="vista-previa"
+                         alt="Vista previa de la portada seleccionada"
+                         style="max-width: 200px; max-height: 280px; object-fit: contain;">
+                </div>
             </div>
 
             <div class="campo">
                 <label for="resena">Reseña <span class="obligatorio">*</span></label>
-                <textarea
-                    id="resena"
-                    name="resena"
-                    rows="4"
-                    placeholder="¿De qué trata? Contá un poco sin revelar spoilers..."
-                    required
-                ></textarea>
+                <textarea id="resena" name="resena" rows="4"
+                          placeholder="¿De qué trata? Contá un poco sin revelar spoilers..."
+                          required></textarea>
             </div>
 
             <div class="campo">
                 <label for="motivo">¿Por qué la recomendás? <span class="obligatorio">*</span></label>
-                <textarea
-                    id="motivo"
-                    name="motivo"
-                    rows="3"
-                    placeholder="¿Qué fue lo que más te gustó? ¿A quién se la recomendarías?"
-                    required
-                ></textarea>
+                <textarea id="motivo" name="motivo" rows="3"
+                          placeholder="¿Qué fue lo que más te gustó? ¿A quién se la recomendarías?"
+                          required></textarea>
             </div>
 
             <div class="campo">
@@ -152,12 +142,8 @@
             </div>
 
             <label class="checkbox-campo" for="recomendacion-general">
-                <input
-                    type="checkbox"
-                    id="recomendacion-general"
-                    name="recomendacion_general"
-                    value="si"
-                >
+                <input type="checkbox" id="recomendacion-general"
+                       name="recomendacion_general" value="si">
                 <span>La recomendaría a cualquier persona</span>
             </label>
 
@@ -165,22 +151,23 @@
                 <span class="obligatorio">*</span> Campos obligatorios
             </p>
 
+            <p id="mensaje-formulario" role="status" aria-live="polite" hidden></p>
+
             <button type="submit" class="boton-enviar">
                 Publicar recomendación →
             </button>
 
         </form>
 
-        <p class="aviso">
-            Proyecto académico: el formulario todavía no guarda
-            recomendaciones en una base de datos.
-        </p>
-
     </main>
 
     <footer class="pie">
         <p>© 2026 Recomenda+ · Películas y series para descubrir.</p>
     </footer>
+
+
+    <script src="supabaseClient.js"></script>
+    <script src="./script.js"></script>
 
 </body>
 </html>
